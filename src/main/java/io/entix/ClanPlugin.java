@@ -3,6 +3,7 @@ package io.entix;
 import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
 import io.entix.clan.ClanService;
+import io.entix.mongo.LocationMongoCodec;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -48,7 +49,7 @@ public class ClanPlugin extends JavaPlugin {
         }
 
         mongoManager = new MongoManager(Credentials.of(connectionString, database));
-        mongoManager.registerCodec(new LocalDateCodec());
+        mongoManager.registerCodec(new LocationMongoCodec());
 
         executorService = Executors.newFixedThreadPool(4);
         clanService = new ClanService(this);
