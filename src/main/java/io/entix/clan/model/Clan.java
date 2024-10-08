@@ -4,13 +4,15 @@ import eu.koboo.en2do.repository.entity.Id;
 import eu.koboo.en2do.repository.entity.Transient;
 import io.entix.clan.model.member.ClanMember;
 import io.entix.clan.model.member.rank.ClanRank;
-import io.entix.clan.repository.ClanMemberRepository;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -26,6 +28,9 @@ public class Clan {
     String clanName;
     String clanTag;
 
+    int maxBases = 3;
+    List<Location> clanBases = new ArrayList<>();
+
     UUID clanCreator;
 
     double experience = 0.0;
@@ -36,6 +41,14 @@ public class Clan {
     @Transient
     Map<UUID, ClanMember> clanMembers = new HashMap<>();
 
+    public void sendClanMessage(@NonNull String message) {
+        for (ClanMember clanMember : clanMembers.values()) {
+            Player player = Bukkit.getPlayer(clanMember.getMemberId());
+            if (player == null || !player.isOnline()) continue;
+            player.sendMessage(Component.text(message));
+        }
+    }
+
     public ClanMember addMember(@NonNull UUID uniqueId, @NonNull ClanRank clanRank) {
         if (clanMembers.containsKey(uniqueId)) {
             return null;
@@ -45,5 +58,9 @@ public class Clan {
         clanMember.setMemberId(uniqueId);
         clanMember.setClanRank(clanRank);
         return clanMember;
+    }
+
+    public @Nullable ClanMember findClanMemberById(@NonNull UUID memberId) {
+        return clanMembers.get(memberId);
     }
 }

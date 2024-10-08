@@ -7,11 +7,15 @@ import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
 import io.entix.clan.ClanService;
 import io.entix.clan.command.ClanCommand;
+import io.entix.clan.listener.PlayerJoinListener;
+import io.entix.clan.listener.PlayerQuitListener;
 import io.entix.mongo.LocationMongoCodec;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.ExecutorService;
@@ -65,6 +69,10 @@ public class ClanPlugin extends JavaPlugin {
         executorService = Executors.newFixedThreadPool(4);
         clanService = new ClanService(this);
         clanService.onStart();
+
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new PlayerJoinListener(this), this);
+        pluginManager.registerEvents(new PlayerQuitListener(this), this);
     }
 
     @Override
