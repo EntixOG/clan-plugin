@@ -1,4 +1,4 @@
-package io.entix.clan.listener;
+package io.entix.listener;
 
 import io.entix.ClanPlugin;
 import io.entix.clan.model.Clan;

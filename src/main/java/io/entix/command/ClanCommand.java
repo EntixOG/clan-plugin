@@ -1,4 +1,4 @@
-package io.entix.clan.command;
+package io.entix.command;
 
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.command.Command;
