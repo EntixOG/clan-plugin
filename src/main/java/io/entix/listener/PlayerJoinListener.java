@@ -1,8 +1,8 @@
 package io.entix.listener;
 
 import io.entix.ClanPlugin;
-import io.entix.clan.model.Clan;
-import io.entix.clan.model.member.ClanMember;
+import io.entix.data.clan.Clan;
+import io.entix.data.clan.member.ClanMember;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

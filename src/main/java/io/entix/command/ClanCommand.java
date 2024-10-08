@@ -5,7 +5,7 @@ import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import io.entix.ClanPlugin;
-import io.entix.clan.model.Clan;
+import io.entix.data.clan.Clan;
 import io.entix.validator.impl.ClanNameValidator;
 import io.entix.validator.impl.ClanTagValidator;
 import net.kyori.adventure.text.Component;
