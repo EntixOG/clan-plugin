@@ -6,6 +6,7 @@ import io.entix.clan.ClanService;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
+import org.bson.codecs.jsr310.LocalDateCodec;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.ExecutorService;
@@ -47,6 +48,8 @@ public class ClanPlugin extends JavaPlugin {
         }
 
         mongoManager = new MongoManager(Credentials.of(connectionString, database));
+        mongoManager.registerCodec(new LocalDateCodec());
+
         executorService = Executors.newFixedThreadPool(4);
         clanService = new ClanService(this);
         clanService.onStart();
