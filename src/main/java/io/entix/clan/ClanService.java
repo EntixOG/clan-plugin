@@ -7,6 +7,7 @@ import io.entix.clan.model.member.rank.ClanRank;
 import io.entix.clan.repository.ClanMemberRepository;
 import io.entix.clan.repository.ClanRepository;
 import io.entix.clan.repository.ClanRewardRepository;
+import io.entix.clan.reward.ClanReward;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -15,6 +16,8 @@ import lombok.experimental.NonFinal;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,6 +32,7 @@ public class ClanService {
     ClanRewardRepository clanRewardRepository;
 
     Map<String, Clan> loadedClans;
+    Map<UUID, ClanReward> loadedClanRewards;
 
     public ClanService(ClanPlugin plugin) {
         this.plugin = plugin;
@@ -36,11 +40,16 @@ public class ClanService {
         this.clanMemberRepository = plugin.getMongoManager().create(ClanMemberRepository.class);
         this.clanRewardRepository = plugin.getMongoManager().create(ClanRewardRepository.class);
         this.loadedClans = new ConcurrentHashMap<>();
+        this.loadedClanRewards = new ConcurrentHashMap<>();
         onStart();
     }
 
     public void onStart() {
-
+        //Load all rewards into runtime cache
+        for (ClanReward reward : clanRewardRepository.findAll()) {
+            UUID rewardId = reward.getRewardId();
+            loadedClanRewards.putIfAbsent(rewardId, reward);
+        }
     }
 
     public void onStop() {
@@ -106,6 +115,10 @@ public class ClanService {
                 .filter(clan -> clan.getClanMembers().containsKey(uniqueId))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public @Nullable ClanReward findClanRewardById(@NonNull UUID rewardId) {
+        return loadedClanRewards.get(rewardId);
     }
 
 }
