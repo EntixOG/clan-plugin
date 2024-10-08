@@ -1,0 +1,6 @@
+name: ClanPlugin
+version: 1.0-SNAPSHOT
+author: EntixOG
+main: io.entix.ClanPlugin
+description: Clan plugin with various features for a comprehensive experience.
+website: https://github.com/EntixOG
