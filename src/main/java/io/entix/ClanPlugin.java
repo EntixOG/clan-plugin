@@ -70,7 +70,7 @@ public class ClanPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         if (plugin == null) return;
-        if (mongoManager != null) mongoManager.close();
         if (clanService != null) clanService.onStop();
+        if (mongoManager != null) mongoManager.close();
     }
 }
