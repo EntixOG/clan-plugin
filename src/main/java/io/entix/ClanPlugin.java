@@ -1,13 +1,17 @@
 package io.entix;
 
+import dev.rollczi.litecommands.LiteCommands;
+import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
+import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
 import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
 import io.entix.clan.ClanService;
+import io.entix.clan.command.ClanCommand;
 import io.entix.mongo.LocationMongoCodec;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import org.bson.codecs.jsr310.LocalDateCodec;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.ExecutorService;
@@ -19,6 +23,8 @@ public class ClanPlugin extends JavaPlugin {
 
     ClanPlugin plugin;
     MongoManager mongoManager;
+
+    LiteCommands<CommandSender> liteCommands;
 
     ExecutorService executorService;
     ClanService clanService;
@@ -50,6 +56,11 @@ public class ClanPlugin extends JavaPlugin {
 
         mongoManager = new MongoManager(Credentials.of(connectionString, database));
         mongoManager.registerCodec(new LocationMongoCodec());
+
+        liteCommands = LiteBukkitFactory.builder("clans", this)
+                .message(LiteBukkitMessages.PLAYER_ONLY, "Dieser Befehl kann nur Ingame verwendet werden.")
+                .message(LiteBukkitMessages.MISSING_PERMISSIONS, "Für diese Aktion besitzt du keine Rechte.")
+                .commands(new ClanCommand(this)).build();
 
         executorService = Executors.newFixedThreadPool(4);
         clanService = new ClanService(this);
