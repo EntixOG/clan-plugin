@@ -4,6 +4,7 @@ import eu.koboo.en2do.repository.entity.Id;
 import eu.koboo.en2do.repository.entity.Transient;
 import io.entix.clan.model.member.ClanMember;
 import io.entix.clan.model.member.rank.ClanRank;
+import io.entix.clan.model.reward.AvailableReward;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import net.kyori.adventure.text.Component;
@@ -28,15 +29,16 @@ public class Clan {
     String clanName;
     String clanTag;
 
-    int maxBases = 3;
-    List<Location> clanBases = new ArrayList<>();
-
     UUID clanCreator;
+    long creationDate = System.currentTimeMillis();
 
     double experience = 0.0;
     long money = 0L;
 
-    long creationDate = System.currentTimeMillis();
+    int maxBases = 3;
+    List<Location> clanBases = new ArrayList<>();
+
+    List<AvailableReward> availableRewards = new ArrayList<>();
 
     @Transient
     Map<UUID, ClanMember> clanMembers = new HashMap<>();
