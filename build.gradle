@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version "$shadowVersion"
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+group = 'io.entix'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+
+    maven {
+        name 'PaperMC Repository'
+        url 'https://repo.papermc.io/repository/maven-public/'
+    }
+
+    maven {
+        name 'LiteCommands Repository'
+        url 'https://repo.panda-lang.org/releases'
+    }
+}
+
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:$paperSpigot"
+
+    implementation "dev.rollczi:litecommands-bukkit:$liteCommands"
+
+    compileOnly "eu.koboo:en2do:$en2do"
+
+    compileOnly "org.projectlombok:lombok:$lombok"
+    annotationProcessor "org.projectlombok:lombok:$lombok"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+compileJava {
+    options.fork = true
+    options.encoding = 'UTF-8'
+    options.release.set(21)
+}
+kotlin {
+    jvmToolchain(21)
+}
