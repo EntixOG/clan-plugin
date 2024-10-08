@@ -6,6 +6,7 @@ import io.entix.clan.model.member.ClanMember;
 import io.entix.clan.model.member.rank.ClanRank;
 import io.entix.clan.repository.ClanMemberRepository;
 import io.entix.clan.repository.ClanRepository;
+import io.entix.clan.repository.ClanRewardRepository;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -25,6 +26,7 @@ public class ClanService {
     ClanPlugin plugin;
     ClanRepository clanRepository;
     ClanMemberRepository clanMemberRepository;
+    ClanRewardRepository clanRewardRepository;
 
     Map<String, Clan> loadedClans;
 
@@ -32,6 +34,7 @@ public class ClanService {
         this.plugin = plugin;
         this.clanRepository = plugin.getMongoManager().create(ClanRepository.class);
         this.clanMemberRepository = plugin.getMongoManager().create(ClanMemberRepository.class);
+        this.clanRewardRepository = plugin.getMongoManager().create(ClanRewardRepository.class);
         this.loadedClans = new ConcurrentHashMap<>();
         onStart();
     }

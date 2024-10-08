@@ -6,6 +6,8 @@ import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
 import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
 import io.entix.clan.ClanService;
+import io.entix.clan.reward.content.codec.RewardContentCodec;
+import io.entix.clan.reward.requirements.codec.RewardRequirementCodec;
 import io.entix.command.ClanCommand;
 import io.entix.listener.PlayerJoinListener;
 import io.entix.listener.PlayerQuitListener;
@@ -60,6 +62,8 @@ public class ClanPlugin extends JavaPlugin {
 
         mongoManager = new MongoManager(Credentials.of(connectionString, database));
         mongoManager.registerCodec(new LocationMongoCodec());
+        mongoManager.registerCodec(new RewardContentCodec());
+        mongoManager.registerCodec(new RewardRequirementCodec(this));
 
         liteCommands = LiteBukkitFactory.builder("clans", this)
                 .message(LiteBukkitMessages.PLAYER_ONLY, "Dieser Befehl kann nur Ingame verwendet werden.")
