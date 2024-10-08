@@ -12,6 +12,7 @@ import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.UUID;
@@ -85,11 +86,21 @@ public class ClanService {
         });
     }
 
+    public @Nullable Clan findClanByName(@NonNull String clanName) {
+        return loadedClans.get(clanName);
+    }
 
-    public Clan findClanByName(@NonNull String clanName) {
+    public @Nullable Clan findClanByTag(@NonNull String clanTag) {
         return loadedClans.values()
                 .stream()
-                .filter(clan -> clan.getClanName().equals(clanName))
+                .filter(clan -> clan.getClanTag().equals(clanTag))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public @Nullable Clan findClanByUniqueId(@NonNull UUID uniqueId) {
+        return loadedClans.values().stream()
+                .filter(clan -> clan.getClanMembers().containsKey(uniqueId))
                 .findFirst()
                 .orElse(null);
     }
