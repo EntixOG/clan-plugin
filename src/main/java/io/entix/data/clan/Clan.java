@@ -77,6 +77,8 @@ public class Clan {
         ClanMember clanMember = new ClanMember();
         clanMember.setMemberId(uniqueId);
         clanMember.setClanRank(clanRank);
+
+        clanMembers.put(uniqueId, clanMember);
         return clanMember;
     }
 
