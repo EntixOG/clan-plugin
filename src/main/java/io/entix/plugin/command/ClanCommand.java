@@ -14,33 +14,33 @@ import org.bukkit.entity.Player;
 @Command(name = "clan", aliases = {"clans"})
 public record ClanCommand(ClanPlugin plugin) {
 
-    @Execute(name = "create")
+    @Execute(name = "einladen", aliases = {"create"})
     public void onClanCreate(@Context Player player, @Arg("clanName") String clanName, @Arg("clanTag") String clanTag) {
         Clan clan = plugin.getClanService().findClanByUniqueId(player.getUniqueId());
         if (clan != null) {
-            player.sendMessage(Component.text("<red>Du bist schon Mitglied in einem Clan."));
+            player.sendMessage(Component.text("§cDu bist schon Mitglied in einem Clan."));
             return;
         }
 
         clan = plugin.getClanService().findClanByName(clanName);
-        if (clan == null) {
-            player.sendMessage(Component.text("<red>Es wurde ein Clan mit diesem Namen bereits erstellt."));
+        if (clan != null) {
+            player.sendMessage(Component.text("§cEs wurde ein Clan mit diesem Namen bereits erstellt."));
             return;
         }
 
         ClanNameValidator nameValidator = new ClanNameValidator(clanName);
         if (!nameValidator.isValid()) {
-            player.sendMessage(Component.text("<red>Der Clan Name ist nicht gültig."));
+            player.sendMessage(Component.text("§cDer Clan Name ist nicht gültig."));
             return;
         }
 
         ClanTagValidator tagValidator = new ClanTagValidator(clanName);
         if (!tagValidator.isValid()) {
-            player.sendMessage(Component.text("<red>Der Clan Tag ist nicht gültig."));
+            player.sendMessage(Component.text("§cDer Clan Tag ist nicht gültig."));
             return;
         }
 
-        //TODO
-
+        plugin.getClanService().createClan(clanName, clanTag, player);
+        player.sendMessage(Component.text("§aDu hast einen Clan erstellt §8(§6" + clanName + "§8)"));
     }
 }
