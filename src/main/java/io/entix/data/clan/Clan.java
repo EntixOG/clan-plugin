@@ -2,6 +2,8 @@ package io.entix.data.clan;
 
 import eu.koboo.en2do.repository.entity.Id;
 import eu.koboo.en2do.repository.entity.Transient;
+import io.entix.data.clan.achievements.ClanAchievement;
+import io.entix.data.clan.achievements.ClanUnlockedAchievement;
 import io.entix.data.clan.member.ClanMember;
 import io.entix.data.clan.member.rank.ClanRank;
 import io.entix.data.clan.reward.AvailableReward;
@@ -39,6 +41,7 @@ public class Clan {
     List<Location> clanBases = new ArrayList<>();
 
     List<AvailableReward> availableRewards = new ArrayList<>();
+    List<ClanUnlockedAchievement> unlockedAchievements = new ArrayList<>();
 
     @Transient
     Map<UUID, ClanMember> clanMembers = new HashMap<>();
@@ -50,6 +53,20 @@ public class Clan {
             if (player == null || !player.isOnline()) continue;
             player.sendMessage(Component.text(message));
         }
+    }
+
+    @Transient
+    public boolean unlockAchievement(@NonNull ClanAchievement achievement) {
+        ClanUnlockedAchievement unlockedAchievement = unlockedAchievements.stream()
+                .filter(clanUnlockedAchievement -> clanUnlockedAchievement.getAchievement().equals(achievement))
+                .findFirst()
+                .orElse(null);
+
+        if (unlockedAchievement != null) return false;
+
+        unlockedAchievement = new ClanUnlockedAchievement(achievement, System.currentTimeMillis());
+        unlockedAchievements.add(unlockedAchievement);
+        return true;
     }
 
     @Transient
