@@ -1,5 +1,7 @@
 package io.entix;
 
+import com.alessiodp.libby.BukkitLibraryManager;
+import com.alessiodp.libby.Library;
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
@@ -40,6 +42,7 @@ public class ClanPlugin extends JavaPlugin {
     @Override
     public void onLoad() {
         plugin = this;
+        initializeDependency();
     }
 
     @Override
@@ -87,6 +90,19 @@ public class ClanPlugin extends JavaPlugin {
     public void onDisable() {
         if (plugin == null) return;
         if (clanService != null) clanService.onStop();
+        if (liteCommands != null) liteCommands.unregister();
         if (mongoManager != null) mongoManager.close();
+    }
+
+    private void initializeDependency() {
+        BukkitLibraryManager libraryManager = new BukkitLibraryManager(this);
+        libraryManager.addMavenCentral();
+        libraryManager.addRepository("https://repo.entixog.de/releases");
+
+        Library en2do = Library.builder()
+                .groupId("eu.koboo")
+                .artifactId("en2do")
+                .version("3.1.9").build();
+        libraryManager.loadLibrary(en2do);
     }
 }
