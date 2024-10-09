@@ -20,6 +20,7 @@ public record PlayerQuitListener(ClanPlugin plugin) implements Listener {
             ClanMember clanMember = clan.findClanMemberById(player.getUniqueId());
             if (clanMember == null) return;
             clanMember.setOnline(false);
+            plugin.getClanService().getClanMemberRepository().save(clanMember);
         });
     }
 }
