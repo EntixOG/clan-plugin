@@ -9,6 +9,7 @@ import io.entix.data.ClanService;
 import io.entix.data.codec.RewardContentCodec;
 import io.entix.data.codec.RewardRequirementCodec;
 import io.entix.plugin.command.ClanCommand;
+import io.entix.plugin.listener.EntityDeathListener;
 import io.entix.plugin.listener.PlayerJoinListener;
 import io.entix.plugin.listener.PlayerQuitListener;
 import io.entix.data.codec.LocationMongoCodec;
@@ -77,6 +78,7 @@ public class ClanPlugin extends JavaPlugin {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new PlayerJoinListener(this), this);
         pluginManager.registerEvents(new PlayerQuitListener(this), this);
+        pluginManager.registerEvents(new EntityDeathListener(this), this);
     }
 
     @Override

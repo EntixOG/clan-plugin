@@ -28,6 +28,4 @@ public class ClanReward {
     public boolean hasRequirements() {
         return rewardRequirements.isEmpty();
     }
-
-
 }

@@ -12,8 +12,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,6 +33,8 @@ public class ClanService {
     Map<String, Clan> loadedClans;
     Map<UUID, ClanReward> loadedClanRewards;
 
+    List<EntityType> availableEntities;
+
     public ClanService(ClanPlugin plugin) {
         this.plugin = plugin;
         this.clanRepository = plugin.getMongoManager().create(ClanRepository.class);
@@ -37,6 +42,7 @@ public class ClanService {
         this.clanRewardRepository = plugin.getMongoManager().create(ClanRewardRepository.class);
         this.loadedClans = new ConcurrentHashMap<>();
         this.loadedClanRewards = new ConcurrentHashMap<>();
+        this.availableEntities = List.of(EntityType.ZOMBIE, EntityType.HORSE);
         onStart();
     }
 
@@ -49,7 +55,6 @@ public class ClanService {
     }
 
     public void onStop() {
-
     }
 
     public void createClan(@NonNull String clanName, @NonNull String clanTag, @NonNull Player clanCreator) {
@@ -63,6 +68,7 @@ public class ClanService {
         clan.setClanCreator(clanCreator.getUniqueId());
 
         ClanMember clanMember = clan.addMember(clanCreator.getUniqueId(), ClanRank.OWNER);
+        if (clanMember == null) throw new RuntimeException("ClanMember could not be created.");
         clanMember.setLastSeenName(clanCreator.getName());
         clanMember.setOnline(true);
 
@@ -116,5 +122,6 @@ public class ClanService {
     public @Nullable ClanReward findClanRewardById(@NonNull UUID rewardId) {
         return loadedClanRewards.get(rewardId);
     }
+
 
 }
