@@ -66,6 +66,8 @@ public class Clan {
 
         unlockedAchievement = new ClanUnlockedAchievement(achievement, System.currentTimeMillis());
         unlockedAchievements.add(unlockedAchievement);
+
+        setExperience(experience + achievement.getExperience());
         return true;
     }
 
