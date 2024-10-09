@@ -24,7 +24,7 @@ repositories {
 dependencies {
     compileOnly "io.papermc.paper:paper-api:$paperSpigot"
 
-    implementation "dev.rollczi:litecommands-bukkit:$liteCommands"
+    compileOnly "dev.rollczi:litecommands-bukkit:$liteCommands"
 
     compileOnly "eu.koboo:en2do:$en2do"
 
