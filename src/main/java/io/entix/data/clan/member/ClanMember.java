@@ -14,7 +14,6 @@ import java.util.UUID;
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ClanMember {
 
