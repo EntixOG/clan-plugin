@@ -20,6 +20,8 @@ public class ClanMember {
     @Id
     UUID memberId;
 
+    String clanName;
+
     String lastSeenName;
     long joiningDate = System.currentTimeMillis();
 
