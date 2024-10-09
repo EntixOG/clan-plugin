@@ -1,4 +1,4 @@
-package io.entix.data.reward.content.codec;
+package io.entix.data.codec;
 
 import io.entix.data.reward.content.AbstractRewardContent;
 import io.entix.data.reward.content.type.RewardContentType;

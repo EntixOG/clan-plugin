@@ -1,4 +1,4 @@
-package io.entix.data.reward.requirements.codec;
+package io.entix.data.codec;
 
 import io.entix.ClanPlugin;
 import io.entix.data.reward.requirements.AbstractRewardRequirement;

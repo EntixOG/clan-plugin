@@ -1,4 +1,4 @@
-package io.entix.mongo;
+package io.entix.data.codec;
 
 import lombok.extern.java.Log;
 import org.bson.BsonReader;
