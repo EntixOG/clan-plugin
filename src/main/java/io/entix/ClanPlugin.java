@@ -5,6 +5,7 @@ import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import dev.rollczi.litecommands.bukkit.LiteBukkitMessages;
 import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
+import eu.koboo.en2do.SettingsBuilder;
 import io.entix.data.ClanService;
 import io.entix.data.codec.RewardContentCodec;
 import io.entix.data.codec.RewardRequirementCodec;
@@ -61,7 +62,8 @@ public class ClanPlugin extends JavaPlugin {
             return;
         }
 
-        mongoManager = new MongoManager(Credentials.of(connectionString, database));
+        SettingsBuilder settingsBuilder = new SettingsBuilder().collectionPrefix("clan_").disableMongoDBLogger();
+        mongoManager = new MongoManager(Credentials.of(connectionString, database), settingsBuilder);
         mongoManager.registerCodec(new LocationMongoCodec());
         mongoManager.registerCodec(new RewardContentCodec());
         mongoManager.registerCodec(new RewardRequirementCodec(this));

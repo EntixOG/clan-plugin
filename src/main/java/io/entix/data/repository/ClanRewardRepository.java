@@ -6,6 +6,6 @@ import io.entix.data.reward.ClanReward;
 
 import java.util.UUID;
 
-@Collection("clan_reward")
+@Collection("rewards")
 public interface ClanRewardRepository extends Repository<ClanReward, UUID> {
 }
