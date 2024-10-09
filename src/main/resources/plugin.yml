@@ -7,4 +7,3 @@ description: Clan plugin with various features for a comprehensive experience.
 website: https://github.com/EntixOG
 libraries:
   - org.mongodb:mongodb-driver-sync:4.11.1
-  - eu.koboo:en2do:3.1.9
