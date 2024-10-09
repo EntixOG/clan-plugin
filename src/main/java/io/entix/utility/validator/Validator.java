@@ -1,4 +1,4 @@
-package io.entix.validator;
+package io.entix.utility.validator;
 
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
