@@ -75,6 +75,7 @@ public class Clan {
         if (clanMembers.containsKey(uniqueId)) return null;
 
         ClanMember clanMember = new ClanMember();
+        clanMember.setClanName(clanName);
         clanMember.setMemberId(uniqueId);
         clanMember.setClanRank(clanRank);
 

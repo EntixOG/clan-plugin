@@ -52,6 +52,15 @@ public class ClanService {
             UUID rewardId = reward.getRewardId();
             loadedClanRewards.putIfAbsent(rewardId, reward);
         }
+
+        if (clanRepository == null) return;
+        plugin.getExecutorService().execute(() -> {
+            for (Clan clan : clanRepository.findAll()) {
+                List<ClanMember> membersByClan = clanMemberRepository.findManyByClanName(clan.getClanName());
+                membersByClan.forEach(clanMember -> clan.getClanMembers().put(clanMember.getMemberId(), clanMember));
+                loadedClans.put(clan.getClanName(), clan);
+            }
+        });
     }
 
     public void onStop() {
