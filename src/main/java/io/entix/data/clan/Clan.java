@@ -12,6 +12,7 @@ import lombok.experimental.FieldDefaults;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,6 +39,8 @@ public class Clan {
 
     int maxBases = 3;
     List<Location> clanBases = new ArrayList<>();
+
+    Map<EntityType, Integer> killedEntities = new HashMap<>();
 
     List<AvailableReward> availableRewards = new ArrayList<>();
     List<ClanUnlockedAchievement> unlockedAchievements = new ArrayList<>();
@@ -81,6 +84,13 @@ public class Clan {
 
         clanMembers.put(uniqueId, clanMember);
         return clanMember;
+    }
+
+    @Transient
+    public void addKill(@NonNull EntityType entityType) {
+        Integer killsOfEntity = killedEntities.getOrDefault(entityType, 0);
+        killsOfEntity++;
+        killedEntities.put(entityType, killsOfEntity);
     }
 
     @Transient

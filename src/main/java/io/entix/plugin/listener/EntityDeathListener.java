@@ -22,6 +22,8 @@ public record EntityDeathListener(ClanPlugin plugin) implements Listener {
         Clan clan = plugin.getClanService().findClanByUniqueId(killer.getUniqueId());
         if (clan == null) return;
 
+        clan.addKill(entityType);
+
         ClanAchievement firstMobKillAchievement = ClanAchievement.FIRST_MOB_KILL;
         if (!clan.unlockAchievement(firstMobKillAchievement)) return;
         clan.sendClanMessage("Neues Achievement freigeschaltet -> " + firstMobKillAchievement.getTranslation());
