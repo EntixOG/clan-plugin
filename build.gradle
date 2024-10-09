@@ -18,12 +18,18 @@ repositories {
         name 'LiteCommands Repository'
         url 'https://repo.panda-lang.org/releases'
     }
+
+    maven {
+        name 'Libby Repository'
+        url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+    }
 }
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:$paperSpigot"
 
     implementation "dev.rollczi:litecommands-bukkit:$liteCommands"
+    implementation "com.alessiodp.libby:libby-bukkit:$libby"
 
     compileOnly "eu.koboo:en2do:$en2do"
 
