@@ -1,4 +1,4 @@
-package io.entix.data.reward.requirements;
+package io.entix.data.reward.repository;
 
 import eu.koboo.en2do.repository.Collection;
 import eu.koboo.en2do.repository.Repository;

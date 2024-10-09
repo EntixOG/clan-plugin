@@ -6,7 +6,7 @@ import io.entix.data.clan.member.ClanMember;
 import io.entix.data.clan.member.rank.ClanRank;
 import io.entix.data.clan.repository.ClanMemberRepository;
 import io.entix.data.clan.repository.ClanRepository;
-import io.entix.data.reward.requirements.ClanRewardRepository;
+import io.entix.data.reward.repository.ClanRewardRepository;
 import io.entix.data.reward.ClanReward;
 import lombok.AccessLevel;
 import lombok.Getter;
