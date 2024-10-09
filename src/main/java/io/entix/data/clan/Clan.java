@@ -43,6 +43,7 @@ public class Clan {
     @Transient
     Map<UUID, ClanMember> clanMembers = new HashMap<>();
 
+    @Transient
     public void sendClanMessage(@NonNull String message) {
         for (ClanMember clanMember : clanMembers.values()) {
             Player player = Bukkit.getPlayer(clanMember.getMemberId());
@@ -51,10 +52,9 @@ public class Clan {
         }
     }
 
-    public ClanMember addMember(@NonNull UUID uniqueId, @NonNull ClanRank clanRank) {
-        if (clanMembers.containsKey(uniqueId)) {
-            return null;
-        }
+    @Transient
+    public @Nullable ClanMember addMember(@NonNull UUID uniqueId, @NonNull ClanRank clanRank) {
+        if (clanMembers.containsKey(uniqueId)) return null;
 
         ClanMember clanMember = new ClanMember();
         clanMember.setMemberId(uniqueId);
@@ -62,6 +62,7 @@ public class Clan {
         return clanMember;
     }
 
+    @Transient
     public @Nullable ClanMember findClanMemberById(@NonNull UUID memberId) {
         return clanMembers.get(memberId);
     }
