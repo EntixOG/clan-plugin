@@ -16,6 +16,7 @@ import io.entix.plugin.listener.EntityDeathListener;
 import io.entix.plugin.listener.PlayerJoinListener;
 import io.entix.plugin.listener.PlayerQuitListener;
 import io.entix.data.codec.LocationMongoCodec;
+import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -34,6 +35,7 @@ public class ClanPlugin extends JavaPlugin {
     ClanPlugin plugin;
     MongoManager mongoManager;
 
+    InventoryManager inventoryManager;
     LiteCommands<CommandSender> liteCommands;
 
     ExecutorService executorService;
@@ -71,6 +73,9 @@ public class ClanPlugin extends JavaPlugin {
         mongoManager.registerCodec(new RewardContentCodec());
         mongoManager.registerCodec(new RewardRequirementCodec(this));
 
+        inventoryManager = new InventoryManager(this);
+        inventoryManager.invoke();
+
         liteCommands = LiteBukkitFactory.builder("clans", this)
                 .message(LiteBukkitMessages.PLAYER_ONLY, "Dieser Befehl kann nur Ingame verwendet werden.")
                 .message(LiteBukkitMessages.MISSING_PERMISSIONS, "Für diese Aktion besitzt du keine Rechte.")
@@ -104,5 +109,11 @@ public class ClanPlugin extends JavaPlugin {
                 .artifactId("en2do")
                 .version("3.1.9").build();
         libraryManager.loadLibrary(en2do);
+
+        Library ryseInventory = Library.builder()
+                .groupId("io.github.rysefoxx.inventory")
+                .artifactId("RyseInventory-Plugin")
+                .version("1.6.14").build();
+        libraryManager.loadLibrary(ryseInventory);
     }
 }
