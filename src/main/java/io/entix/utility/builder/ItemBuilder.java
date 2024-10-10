@@ -169,9 +169,9 @@ public class ItemBuilder {
     public ItemBuilder lore(String @NonNull ... lines) {
         List<Component> lineComponents = new ArrayList<>();
         for (String line : lines) {
-            Component component = miniMessage.deserialize(line);
-            if (line.contains("§")) {
-                component = Component.text(line);
+            Component component = Component.text(line);
+            if (!line.contains("§")) {
+                component = miniMessage.deserialize(line);
             }
             lineComponents.add(component);
         }
