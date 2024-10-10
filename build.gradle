@@ -23,6 +23,11 @@ repositories {
         name 'Libby Repository'
         url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
     }
+
+    maven {
+        name 'Entix Repository'
+        url 'https://repo.entixog.de/releases'
+    }
 }
 
 dependencies {
@@ -30,6 +35,8 @@ dependencies {
 
     implementation "dev.rollczi:litecommands-bukkit:$liteCommands"
     implementation "com.alessiodp.libby:libby-bukkit:$libby"
+
+    compileOnly "io.github.rysefoxx.inventory:RyseInventory-Plugin:$ryseInventory"
 
     compileOnly "eu.koboo:en2do:$en2do"
 
