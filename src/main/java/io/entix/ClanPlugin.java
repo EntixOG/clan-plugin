@@ -16,6 +16,7 @@ import io.entix.plugin.listener.EntityDeathListener;
 import io.entix.plugin.listener.PlayerJoinListener;
 import io.entix.plugin.listener.PlayerQuitListener;
 import io.entix.data.codec.LocationMongoCodec;
+import io.entix.plugin.menu.ClanDefaultMenu;
 import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import lombok.AccessLevel;
 import lombok.Getter;

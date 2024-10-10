@@ -8,6 +8,7 @@ import io.entix.data.repository.ClanMemberRepository;
 import io.entix.data.repository.ClanRepository;
 import io.entix.data.repository.ClanRewardRepository;
 import io.entix.data.reward.ClanReward;
+import io.entix.plugin.menu.ClanDefaultMenu;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -34,6 +35,7 @@ public class ClanService {
     Map<UUID, ClanReward> loadedClanRewards;
 
     List<EntityType> availableEntities;
+    ClanDefaultMenu clanDefaultMenu;
 
     public ClanService(ClanPlugin plugin) {
         this.plugin = plugin;
@@ -43,6 +45,7 @@ public class ClanService {
         this.loadedClans = new ConcurrentHashMap<>();
         this.loadedClanRewards = new ConcurrentHashMap<>();
         this.availableEntities = List.of(EntityType.ZOMBIE, EntityType.HORSE);
+        this.clanDefaultMenu = new ClanDefaultMenu(plugin);
         onStart();
     }
 
