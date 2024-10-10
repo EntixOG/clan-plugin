@@ -6,6 +6,8 @@ import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import io.entix.ClanPlugin;
 import io.entix.data.clan.Clan;
+import io.entix.data.clan.member.ClanMember;
+import io.entix.plugin.menu.ClanMenu;
 import io.entix.utility.validator.impl.ClanNameValidator;
 import io.entix.utility.validator.impl.ClanTagValidator;
 import net.kyori.adventure.text.Component;
@@ -14,7 +16,25 @@ import org.bukkit.entity.Player;
 @Command(name = "clan", aliases = {"clans"})
 public record ClanCommand(ClanPlugin plugin) {
 
-    @Execute(name = "einladen", aliases = {"create"})
+    @Execute
+    public void onClanDefault(@Context Player player) {
+        Clan clan = plugin.getClanService().findClanByUniqueId(player.getUniqueId());
+        if (clan == null) {
+            plugin.getClanService().getClanDefaultMenu().getRyseInventory().open(player);
+            return;
+        }
+
+        ClanMember clanMember = clan.findClanMemberById(player.getUniqueId());
+        if (clanMember == null) {
+            player.sendMessage(Component.text("§cEs ist ein Fehler aufgetreten, versuche es später erneut."));
+            return;
+        }
+
+        ClanMenu clanMenu = new ClanMenu(plugin, clanMember, clan);
+        clanMenu.getRyseInventory().open(player);
+    }
+
+    @Execute(name = "erstellen", aliases = {"create"})
     public void onClanCreate(@Context Player player, @Arg("clanName") String clanName, @Arg("clanTag") String clanTag) {
         Clan clan = plugin.getClanService().findClanByUniqueId(player.getUniqueId());
         if (clan != null) {
