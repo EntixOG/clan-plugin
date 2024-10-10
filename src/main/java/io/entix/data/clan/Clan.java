@@ -45,6 +45,8 @@ public class Clan {
     List<AvailableReward> availableRewards = new ArrayList<>();
     List<ClanUnlockedAchievement> unlockedAchievements = new ArrayList<>();
 
+    int maxClanMembers = 3;
+
     @Transient
     Map<UUID, ClanMember> clanMembers = new HashMap<>();
 
